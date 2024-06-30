@@ -58,7 +58,77 @@ The system also provides various performance metrics and visualisations to evalu
 
 ### Sender Code
 
-**Initialize TCP Socket**: Connects to the server using the specified IP address and port.
+**Initialise TCP Socket**: Connects to the server using the specified IP address and port.
 ```python
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((server_ip, server_port))
+```
+
+**Video Capture**: Captures frames from the webcam.
+```python
+cap = cv2.VideoCapture(0)
+
+```
+
+**Frame Encoding and Sending**: Encodes the frames as JPEG images and sends them to the server.
+```python
+result, frame = cv2.imencode('.jpg', frame)
+data = pickle.dumps(frame, 0)
+s.sendall(struct.pack(">L", len(data)) + data)
+```
+
+### Receiver Code
+**Initialise TCP Socket**: Binds to the IP address and port and listens for incoming connections.
+
+```python
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind((server_ip, server_port))
+s.listen(10)
+conn, addr = s.accept()
+```
+
+**Load Models**: Loads YOLOv5 for object detection and TensorFlow model for colour classification.
+```python
+yolo_model = torch.hub.load('C:/Users/sarpa/Desktop/yolov5', 'custom', path='best.pt', source='local')
+tf_model = tf.keras.models.load_model('modelEpoch50.h5')
+
+```
+
+**Receive and Process Frames**: Decodes the received frames and processes them for object detection and colour classification.
+```python
+frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
+frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
+yolo_results = yolo_model(frame)
+```
+
+**Alerts and Visualisation**: Highlights detected vehicles and displays alerts for green vehicles.
+```python
+cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+cv2.putText(frame, f'{cls_name}, {color_name}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36, 255, 12), 2)
+```
+
+### Performance Metrics
+The following metrics illustrate the model's performance and training progress:
+
+**Confusion Matrix**: The confusion matrix shows the performance of the classification model by comparing actual vs. predicted labels. The diagonal elements represent correct classifications, while off-diagonal elements represent misclassification.
+![Demo GIF](demo/F1_curve.png)
+
+**F1-Confidence Curve**:
+This curve illustrates the relationship between the F1 score and confidence thresholds. The F1 score is the harmonic mean of precision and recall, providing a single metric that balances both.
+![Demo GIF](demo/confusion_matrix.png)
+
+**Training Metrics**:
+These subplots show the training and validation losses, and metrics such as precision, recall, and mAP (mean Average Precision) over the training epochs. These plots help in diagnosing underfitting or overfitting and in evaluating the model's training progress.
+![Demo GIF](demo/results.png)
+
+## Contributions
+
+Feel free to open issues or submit pull requests if you have suggestions for improving this project.
+
+## License
+
+This project is licensed under the MIT License.
+
+
+
+
