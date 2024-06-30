@@ -16,8 +16,7 @@ The system also provides various performance metrics and visualisations to evalu
 - **Alerts and Visualisations**: Highlights identified vehicles and displays alerts for green vehicles, along with various performance metrics.
 
 ## Demo
-
-![Demo GIF](demo/test.gif)
+<img src="demo/test.gif" alt="Demo GIF" width="600">
 
 ## Getting Started
 
@@ -111,15 +110,18 @@ cv2.putText(frame, f'{cls_name}, {color_name}', (x1, y1 - 10), cv2.FONT_HERSHEY_
 The following metrics illustrate the model's performance and training progress:
 
 **Confusion Matrix**: The confusion matrix shows the performance of the classification model by comparing actual vs. predicted labels. The diagonal elements represent correct classifications, while off-diagonal elements represent misclassification.
-![Demo GIF](demo/F1_curve.png)
+
+<img src="demo/confusion_matrix.png" alt="confusion_matrix" width="300">
 
 **F1-Confidence Curve**:
 This curve illustrates the relationship between the F1 score and confidence thresholds. The F1 score is the harmonic mean of precision and recall, providing a single metric that balances both.
-![Demo GIF](demo/confusion_matrix.png)
+
+<img src="demo/F1_curve.png" alt="F1_curve" width="300">
 
 **Training Metrics**:
 These subplots show the training and validation losses, and metrics such as precision, recall, and mAP (mean Average Precision) over the training epochs. These plots help in diagnosing underfitting or overfitting and in evaluating the model's training progress.
-![Demo GIF](demo/results.png)
+
+<img src="demo/results.png" alt="results" width="300">
 
 ## Contributions
 
