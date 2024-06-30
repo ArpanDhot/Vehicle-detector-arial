@@ -2,14 +2,18 @@
 
 ## Overview
 
-This project simulates the transfer of aerial drone footage to a ground unit, which processes the video feed to identify and highlight green vehicles, potentially indicating military vehicles. The project demonstrates real-time video streaming, object detection using YOLOv5, and color classification using a TensorFlow model.
+This project simulates the transfer of aerial drone footage to a ground unit, which processes the video feed to identify and highlight green vehicles, potentially indicating military vehicles. The project leverages advanced computer vision techniques to perform real-time object detection and colour classification.
+
+The sender component captures video from a camera or video file, encodes it, and transmits the frames to a server. The receiver component processes these frames using a YOLOv5 model for detecting various types of vehicles and a TensorFlow model for classifying their colours. If a green vehicle is detected, it is highlighted and an alert is generated. This setup mimics a practical application where drone footage is analysed on the ground to monitor and identify specific targets, enhancing situational awareness and decision-making in real-time scenarios.
+
+The system also provides various performance metrics and visualisations to evaluate the effectiveness of the detection and classification models.
 
 ## Features
 
 - **Real-time Video Streaming**: Captures video from a camera or video file and streams it to a server.
-- **Object Detection**: Utilizes YOLOv5 for detecting various types of vehicles in the video feed.
-- **Color Classification**: Uses a TensorFlow model to classify the color of detected vehicles, focusing on identifying green vehicles.
-- **Alerts and Visualizations**: Highlights identified vehicles and displays alerts for green vehicles, along with various performance metrics.
+- **Object Detection**: Utilises YOLOv5 for detecting various types of vehicles in the video feed.
+- **Color Classification**: Uses a TensorFlow model to classify the colour of detected vehicles, focusing on identifying green vehicles.
+- **Alerts and Visualisations**: Highlights identified vehicles and displays alerts for green vehicles, along with various performance metrics.
 
 ## Demo
 
@@ -45,7 +49,7 @@ This project simulates the transfer of aerial drone footage to a ground unit, wh
     python src/sender.py
     ```
 
-2. **Run the Receiver**: Processes the received video feed, performs object detection and color classification.
+2. **Run the Receiver**: Processes the received video feed, and performs object detection and color classification.
     ```sh
     python src/receiver.py
     ```
