@@ -9,11 +9,11 @@ import tensorflow as tf
 
 # Load the YOLOv5 model
 yolo_model = torch.hub.load('C:/Users/sarpa/Desktop/yolov5', 'custom',
-                            path='C:/Users/sarpa/Desktop/best.pt',
+                            path='best.pt',
                             source='local')
 
 # Load the TensorFlow model
-tf_model = tf.keras.models.load_model('C:/Users/sarpa/Desktop/modelEpoch50.h5')
+tf_model = tf.keras.models.load_model('modelEpoch50.h5')
 
 # Labels for the YOLOv5 model
 labels = {0: 'boat', 1: 'camping car', 2: 'car', 3: 'motorcycle', 4: 'other',
